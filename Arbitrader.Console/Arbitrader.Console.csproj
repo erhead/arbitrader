@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C2F223CB-CE22-4FEB-91B7-823527BEA3F3}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Arbitrader</RootNamespace>
-    <AssemblyName>Arbitrader</AssemblyName>
+    <RootNamespace>Arbitrader.Console</RootNamespace>
+    <AssemblyName>Arbitrader.Console</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

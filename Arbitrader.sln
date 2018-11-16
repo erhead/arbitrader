@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arbitrader.Console", "Arbitrader.Console.csproj", "{C2F223CB-CE22-4FEB-91B7-823527BEA3F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arbitrader.Console", "Arbitrader.Console\Arbitrader.Console.csproj", "{C2F223CB-CE22-4FEB-91B7-823527BEA3F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arbitrader.Core", "..\ClassLibrary1\Arbitrader.Core.csproj", "{A077EE93-ED00-4CCF-B628-ECC926BF0CDB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arbitrader.Core", "Arbitrader.Core\Arbitrader.Core.csproj", "{A077EE93-ED00-4CCF-B628-ECC926BF0CDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
