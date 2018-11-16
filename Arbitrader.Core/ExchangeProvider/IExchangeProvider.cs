@@ -1,7 +1,8 @@
 ﻿using Arbitrader.Core.Data;
+using System;
 using System.Collections.Generic;
 
-namespace Arbitrader.Core
+namespace Arbitrader.Core.ExchangeProvider
 {
     /// <summary>
     /// Defines methods for a class which provider an access to a certain exchange.
@@ -9,9 +10,15 @@ namespace Arbitrader.Core
     public interface IExchangeProvider
     {
         /// <summary>
-        /// Returns an exchange name which is unique within the system.
+        /// Returns a provider name which is unique within the system.
         /// </summary>
-        string ExchangeName { get; }
+        string ProviderName { get; }
+
+        /// <summary>
+        /// Get supported exchange directions and maximal exchange amount denominated in the source asset.
+        /// </summary>
+        /// <returns>The tuple consisting of the source asset, the destination asset and maximal amount denominated in the source asset.</returns>
+        List<Tuple<Asset, Asset, decimal>> GetDirections();
 
         /// <summary>
         /// Returns a list of bids for the specified asset pair.

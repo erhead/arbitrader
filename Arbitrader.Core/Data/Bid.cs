@@ -5,6 +5,8 @@
     /// </summary>
     public class Bid
     {
+        public string ProviderName { get; set; }
+
         /// <summary>
         /// The asset for the Quantity field.
         /// </summary>
