@@ -3,7 +3,7 @@ using Arbitrader.Core.ExchangeProvider;
 using System;
 using System.Collections.Generic;
 
-namespace Arbitrader.Core.ExchangeAggregator
+namespace Arbitrader.Core
 {
     public interface IExchangeAggregator
     {

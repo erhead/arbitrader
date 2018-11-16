@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Arbitrader.Core.ExchangeProvider
+namespace Arbitrader.Core
 {
     /// <summary>
     /// Defines methods for a class which provider an access to a certain exchange.

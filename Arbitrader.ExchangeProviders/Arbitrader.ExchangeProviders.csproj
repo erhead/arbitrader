@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A077EE93-ED00-4CCF-B628-ECC926BF0CDB}</ProjectGuid>
+    <ProjectGuid>{5B3357B6-D5E5-44FC-AED7-832127859235}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Arbitrader.Core</RootNamespace>
-    <AssemblyName>Arbitrader.Core</AssemblyName>
+    <RootNamespace>Arbitrader.ExchangeProviders</RootNamespace>
+    <AssemblyName>Arbitrader.ExchangeProviders</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,11 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IExchangeAggregator.cs" />
-    <Compile Include="Data\Asset.cs" />
-    <Compile Include="Data\Bid.cs" />
-    <Compile Include="IExchangeProvider.cs" />
+    <Compile Include="FakeExchangeProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Arbitrader.Core\Arbitrader.Core.csproj">
+      <Project>{a077ee93-ed00-4ccf-b628-ecc926bf0cdb}</Project>
+      <Name>Arbitrader.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
