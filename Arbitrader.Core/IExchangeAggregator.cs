@@ -1,5 +1,4 @@
 ﻿using Arbitrader.Core.Data;
-using Arbitrader.Core.ExchangeProvider;
 using System;
 using System.Collections.Generic;
 
@@ -15,10 +14,10 @@ namespace Arbitrader.Core
 
         List<Tuple<string, Asset, Asset, decimal>> GetAllExchangeDirections();
 
-        List<Bid> GetAllBids(Asset soldAsset, Asset quoteAsset);
+        List<Bid> GetAllBids(Asset sourceAsset, Asset destAsset);
 
-        int Buy(string providerName, Asset boughtAsset, decimal amount);
+        int Buy(string providerName, Asset sourceAsset, Asset destAsset, decimal amount);
 
-        bool BuyDryRun(string providerName, Asset boughtAsset, decimal amount);
+        bool BuyDryRun(string providerName, Asset sourceAsset, Asset destAsset, decimal amount);
     }
 }

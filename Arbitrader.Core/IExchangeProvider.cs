@@ -23,25 +23,27 @@ namespace Arbitrader.Core
         /// <summary>
         /// Returns a list of bids for the specified asset pair.
         /// </summary>
-        /// <param name="soldAsset">The asset being sold in the bid.</param>
-        /// <param name="quoteAsset">The quote asset.</param>
+        /// <param name="sourceAsset">The asset being bought in the bid.</param>
+        /// <param name="destAsset">The asset being sold in the bid.</param>
         /// <returns>A list of appropriate bids.</returns>
-        List<Bid> GetBids(Asset soldAsset, Asset quoteAsset);
+        List<Bid> GetBids(Asset sourceAsset, Asset destAsset);
 
         /// <summary>
         /// Buy specified amount of the specified asset.
         /// </summary>
-        /// <param name="boughtAsset">The asset to buy.</param>
-        /// <param name="amount">Amount to buy.</param>
+        /// <param name="sourceAsset">The asset to sell.</param>
+        /// <param name="destAsset">The asset to buy.</param>
+        /// <param name="amount">Amount of the dest asset to buy.</param>
         /// <returns>The created transaction ID.</returns>
-        int Buy(Asset boughtAsset, decimal amount);
+        int Buy(Asset sourceAsset, Asset destAsset, decimal amount);
 
         /// <summary>
         /// Check possibility of buying specified amount of the asset right now.
         /// </summary>
-        /// <param name="boughtAsset">The asset to check.</param>
-        /// <param name="amount">Amount to check.</param>
+        /// <param name="sourceAsset">The asset to sell.</param>
+        /// <param name="destAsset">The asset to buy.</param>
+        /// <param name="amount">Amount of the dest asset to buy.</param>
         /// <returns><c>true</c>, if the specified operation is possible.</returns>
-        bool BuyDryRun(Asset boughtAsset, decimal amount);
+        bool BuyDryRun(Asset sourceAsset, Asset destAsset, decimal amount);
     }
 }

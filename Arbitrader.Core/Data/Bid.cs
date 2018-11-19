@@ -8,22 +8,22 @@
         public string ProviderName { get; set; }
 
         /// <summary>
-        /// The asset for the Quantity field.
+        /// The asset being bought by the bid.
         /// </summary>
-        public Asset BaseAsset { get; set; }
+        public Asset SourceAsset { get; set; }
 
         /// <summary>
-        /// The asset for the Price field.
+        /// The asset being sold by the bid.
         /// </summary>
-        public Asset QuoteAsset { get; set; }
+        public Asset DestAsset { get; set; }
 
         /// <summary>
-        /// Quantity being sold.
+        /// Amount being sold.
         /// </summary>
-        public decimal Quantity { get; set; }
+        public decimal Amount { get; set; }
 
         /// <summary>
-        /// The price for one unit of the sold asset expressed in the quote asset.
+        /// Price of the source asset expressed in the dest asset (source asset / dest asset).
         /// </summary>
         public decimal Price { get; set; }
     }
