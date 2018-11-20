@@ -47,6 +47,43 @@ namespace Arbitrader.ExchangeProviders
             }
         }
 
+        /// <summary>
+        /// Checks if specified purchase is feasible with current bids.
+        /// </summary>
+        /// <param name="sourceAsset">The source asset.</param>
+        /// <param name="destAsset">The dest asset.</param>
+        /// <param name="destAssetAmount">Exchange ratge of the source asset expressed in the dest asset.</param>
+        /// <returns>Number of bids to take from the top of the list to satisfy the request.</returns>
+        private int CheckBuyingIsAllowed(Asset sourceAsset, Asset destAsset, decimal destAssetAmount)
+        {
+            if (!_directions.Any(x => x.Item1 == sourceAsset && x.Item2 == destAsset))
+            {
+                throw new InvalidOperationException($"Exchange direction {sourceAsset} -> {destAsset} is not supported by {ProviderName}");
+            }
+
+            if (destAssetAmount < 0)
+            {
+                throw new ArgumentException("Dest asset amount cannot be less than zero");
+            }
+
+            var bids = GetBids(sourceAsset, destAsset);
+
+            decimal currentSum = 0;
+            int bidsToTake = 0;
+            while (currentSum < destAssetAmount && bidsToTake <= bids.Count)
+            {
+                bidsToTake++;
+                currentSum += bids[bidsToTake - 1].DestAssetAmount;
+            }
+
+            if (bidsToTake > bids.Count)
+            {
+                throw new InvalidOperationException("Requested amount is greater than available amount");
+            }
+
+            return bidsToTake;
+        }
+
         public IIdProvider IdProvider { get; set; }
 
         public string ProviderName { get; set; }
@@ -105,9 +142,17 @@ namespace Arbitrader.ExchangeProviders
             }
         }
 
+        /// <summary>
+        /// Get the bids matching the specified asset pair.
+        /// </summary>
+        /// <param name="sourceAsset">The source asset.</param>
+        /// <param name="destAsset">The dest asset.</param>
+        /// <returns>The list of bids sorted by the source asset rate descending (more profitable first).</returns>
         public List<Bid> GetBids(Asset sourceAsset, Asset destAsset)
         {
-            return _bids.Where(x => x.SourceAsset == sourceAsset && x.DestAsset == destAsset).ToList();
+            var result = _bids.Where(x => x.SourceAsset == sourceAsset && x.DestAsset == destAsset).ToList();
+            result.Sort((x, y) => Decimal.Compare(y.Rate, x.Rate));
+            return result;
         }
 
         public List<Tuple<Asset, Asset, decimal>> GetDirections()
@@ -117,32 +162,9 @@ namespace Arbitrader.ExchangeProviders
 
         public int Buy(Asset sourceAsset, Asset destAsset, decimal destAssetAmount)
         {
-            if (!_directions.Any(x => x.Item1 == sourceAsset && x.Item2 == destAsset))
-            {
-                throw new InvalidOperationException($"Exchange direction {sourceAsset} -> {destAsset} is not supported by {ProviderName}");
-            }
-
-            if (destAssetAmount < 0)
-            {
-                throw new ArgumentException("Dest asset amount cannot be less than zero");
-            }
+            int bidsToTake = CheckBuyingIsAllowed(sourceAsset, destAsset, destAssetAmount);
 
             var bids = GetBids(sourceAsset, destAsset);
-            bids.Sort((x, y) => Decimal.Compare(y.Rate, x.Rate));
-
-            decimal currentSum = 0;
-            int bidsToTake = 0;
-            while (currentSum < destAssetAmount && bidsToTake <= bids.Count)
-            {
-                bidsToTake++;
-                currentSum += bids[bidsToTake - 1].DestAssetAmount;
-            }
-
-            if (bidsToTake > bids.Count)
-            {
-                throw new InvalidOperationException("Requested amount is greater than available amount");
-            }
-
             var takenBids = bids.Take(bidsToTake);
             decimal resultingRate = takenBids.Aggregate(0m, (s, bid) => s + bid.Rate * bid.DestAssetAmount) / takenBids.Sum(bid => bid.DestAssetAmount);
 
@@ -161,7 +183,19 @@ namespace Arbitrader.ExchangeProviders
 
         public bool BuyDryRun(Asset sourceAsset, Asset destAsset, decimal destAssetAmount)
         {
-            throw new NotImplementedException();
+            try
+            {
+                CheckBuyingIsAllowed(sourceAsset, destAsset, destAssetAmount);
+                return true;
+            }
+            catch (InvalidOperationException e)
+            {
+                return false;
+            }
+            catch (ArgumentException e)
+            {
+                return false;
+            }
         }
     }
 }
