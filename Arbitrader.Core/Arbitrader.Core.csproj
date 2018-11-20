@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Transaction.cs" />
+    <Compile Include="Data\TransactionStatus.cs" />
     <Compile Include="IExchangeAggregator.cs" />
     <Compile Include="Data\Asset.cs" />
     <Compile Include="Data\Bid.cs" />

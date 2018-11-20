@@ -18,13 +18,31 @@
         public Asset DestAsset { get; set; }
 
         /// <summary>
-        /// Amount being sold.
+        /// Amount being bought by the bid.
         /// </summary>
-        public decimal Amount { get; set; }
+        public decimal SourceAssetAmount { get; set; }
 
         /// <summary>
-        /// Price of the source asset expressed in the dest asset (source asset / dest asset).
+        /// Amount being sold by the bid.
         /// </summary>
-        public decimal Price { get; set; }
+        public decimal DestAssetAmount { get; set; }
+
+        /// <summary>
+        /// Rate of the source asset expressed in the dest asset.
+        /// </summary>
+        public decimal Rate
+        { 
+            get
+            {
+                if (SourceAssetAmount == 0)
+                {
+                    return decimal.MaxValue;
+                }
+                else
+                {
+                    return DestAssetAmount / SourceAssetAmount;
+                }
+            }
+        }
     }
 }

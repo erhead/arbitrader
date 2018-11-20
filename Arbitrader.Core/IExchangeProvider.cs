@@ -35,7 +35,7 @@ namespace Arbitrader.Core
         /// <param name="destAsset">The asset to buy.</param>
         /// <param name="amount">Amount of the dest asset to buy.</param>
         /// <returns>The created transaction ID.</returns>
-        int Buy(Asset sourceAsset, Asset destAsset, decimal amount);
+        int Buy(Asset sourceAsset, Asset destAsset, decimal destAssetAmount);
 
         /// <summary>
         /// Check possibility of buying specified amount of the asset right now.
@@ -44,6 +44,6 @@ namespace Arbitrader.Core
         /// <param name="destAsset">The asset to buy.</param>
         /// <param name="amount">Amount of the dest asset to buy.</param>
         /// <returns><c>true</c>, if the specified operation is possible.</returns>
-        bool BuyDryRun(Asset sourceAsset, Asset destAsset, decimal amount);
+        bool BuyDryRun(Asset sourceAsset, Asset destAsset, decimal destAssetAmount);
     }
 }
