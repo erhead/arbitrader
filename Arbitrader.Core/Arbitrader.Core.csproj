@@ -41,12 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Order.cs" />
     <Compile Include="Data\Transaction.cs" />
     <Compile Include="Data\TransactionStatus.cs" />
+    <Compile Include="ExchangeAggregator.cs" />
     <Compile Include="IExchangeAggregator.cs" />
     <Compile Include="Data\Asset.cs" />
     <Compile Include="Data\Bid.cs" />
     <Compile Include="IExchangeProvider.cs" />
+    <Compile Include="IIdProvider.cs" />
+    <Compile Include="IOrderManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

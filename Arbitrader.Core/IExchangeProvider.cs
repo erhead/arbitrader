@@ -33,17 +33,19 @@ namespace Arbitrader.Core
         /// </summary>
         /// <param name="sourceAsset">The asset to sell.</param>
         /// <param name="destAsset">The asset to buy.</param>
-        /// <param name="amount">Amount of the dest asset to buy.</param>
+        /// <param name="destAssetAmount">Amount of the dest asset to buy.</param>
+        /// <param name="maxSourceAssetAmount">Optional maximal amount of the source asset.</param>
         /// <returns>The created transaction ID.</returns>
-        int Buy(Asset sourceAsset, Asset destAsset, decimal destAssetAmount);
+        int Buy(Asset sourceAsset, Asset destAsset, decimal destAssetAmount, decimal? maxSourceAssetAmount);
 
         /// <summary>
         /// Check possibility of buying specified amount of the asset right now.
         /// </summary>
         /// <param name="sourceAsset">The asset to sell.</param>
         /// <param name="destAsset">The asset to buy.</param>
-        /// <param name="amount">Amount of the dest asset to buy.</param>
+        /// <param name="destAssetAmount">Amount of the dest asset to buy.</param>
+        /// <param name="maxSourceAssetAmount">Optional maximal amount of the source asset.</param>
         /// <returns><c>true</c>, if the specified operation is possible.</returns>
-        bool BuyDryRun(Asset sourceAsset, Asset destAsset, decimal destAssetAmount);
+        bool BuyDryRun(Asset sourceAsset, Asset destAsset, decimal destAssetAmount, decimal? maxSourceAssetAmount);
     }
 }

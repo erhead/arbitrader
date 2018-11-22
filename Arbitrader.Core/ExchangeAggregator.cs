@@ -39,7 +39,7 @@ namespace Arbitrader.Core
             _exchangeProviders.Remove(name);
         }
 
-        public int Buy(string providerName, Asset sourceAsset, Asset destAsset, decimal destAssetAmount)
+        public int Buy(string providerName, Asset sourceAsset, Asset destAsset, decimal destAssetAmount, decimal? sourceAssetMaxAmount)
         {
             if (!_exchangeProviders.ContainsKey(providerName))
             {
@@ -47,10 +47,10 @@ namespace Arbitrader.Core
             }
 
             var provider = _exchangeProviders[providerName];
-            return provider.Buy(sourceAsset, destAsset, destAssetAmount);
+            return provider.Buy(sourceAsset, destAsset, destAssetAmount, sourceAssetMaxAmount);
         }
 
-        public bool BuyDryRun(string providerName, Asset sourceAsset, Asset destAsset, decimal destAssetAmount)
+        public bool BuyDryRun(string providerName, Asset sourceAsset, Asset destAsset, decimal destAssetAmount, decimal? sourceAssetMaxAmount)
         {
             if (!_exchangeProviders.ContainsKey(providerName))
             {
@@ -58,7 +58,7 @@ namespace Arbitrader.Core
             }
 
             var provider = _exchangeProviders[providerName];
-            return provider.BuyDryRun(sourceAsset, destAsset, destAssetAmount);
+            return provider.BuyDryRun(sourceAsset, destAsset, destAssetAmount, sourceAssetMaxAmount);
         }
 
         public List<Bid> GetAllBids(Asset sourceAsset, Asset destAsset)

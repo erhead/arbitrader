@@ -16,8 +16,8 @@ namespace Arbitrader.Core
 
         List<Bid> GetAllBids(Asset sourceAsset, Asset destAsset);
 
-        int Buy(string providerName, Asset sourceAsset, Asset destAsset, decimal destAssetAmount);
+        int Buy(string providerName, Asset sourceAsset, Asset destAsset, decimal destAssetAmount, decimal? maxSourceAssetAmount);
 
-        bool BuyDryRun(string providerName, Asset sourceAsset, Asset destAsset, decimal destAssetAmount);
+        bool BuyDryRun(string providerName, Asset sourceAsset, Asset destAsset, decimal destAssetAmount, decimal? maxSourceAssetAmount);
     }
 }

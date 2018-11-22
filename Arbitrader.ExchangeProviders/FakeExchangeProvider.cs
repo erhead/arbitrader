@@ -53,9 +53,15 @@ namespace Arbitrader.ExchangeProviders
         /// <param name="sourceAsset">The source asset.</param>
         /// <param name="destAsset">The dest asset.</param>
         /// <param name="destAssetAmount">Exchange ratge of the source asset expressed in the dest asset.</param>
+        /// <param name="maxSourceAssetAmount">Optional maximal amount of the source asset.</param>
         /// <returns>Number of bids to take from the top of the list to satisfy the request.</returns>
-        private int CheckBuyingIsAllowed(Asset sourceAsset, Asset destAsset, decimal destAssetAmount)
+        private int CheckBuyingIsAllowed(Asset sourceAsset, Asset destAsset, decimal destAssetAmount, decimal? maxSourceAssetAmount)
         {
+            if (maxSourceAssetAmount != null)
+            {
+                throw new NotImplementedException("Source asset amount limitation is not implemented");
+            }
+
             if (!_directions.Any(x => x.Item1 == sourceAsset && x.Item2 == destAsset))
             {
                 throw new InvalidOperationException($"Exchange direction {sourceAsset} -> {destAsset} is not supported by {ProviderName}");
@@ -160,9 +166,9 @@ namespace Arbitrader.ExchangeProviders
             return _directions.ToList();
         }
 
-        public int Buy(Asset sourceAsset, Asset destAsset, decimal destAssetAmount)
+        public int Buy(Asset sourceAsset, Asset destAsset, decimal destAssetAmount, decimal? maxSourceAssetAmount)
         {
-            int bidsToTake = CheckBuyingIsAllowed(sourceAsset, destAsset, destAssetAmount);
+            int bidsToTake = CheckBuyingIsAllowed(sourceAsset, destAsset, destAssetAmount, maxSourceAssetAmount);
 
             var bids = GetBids(sourceAsset, destAsset);
             var takenBids = bids.Take(bidsToTake);
@@ -181,11 +187,11 @@ namespace Arbitrader.ExchangeProviders
             return transaction.Id;
         }
 
-        public bool BuyDryRun(Asset sourceAsset, Asset destAsset, decimal destAssetAmount)
+        public bool BuyDryRun(Asset sourceAsset, Asset destAsset, decimal destAssetAmount, decimal? maxSourceAssetAmount)
         {
             try
             {
-                CheckBuyingIsAllowed(sourceAsset, destAsset, destAssetAmount);
+                CheckBuyingIsAllowed(sourceAsset, destAsset, destAssetAmount, maxSourceAssetAmount);
                 return true;
             }
             catch (InvalidOperationException e)
