@@ -1,2 +1,2 @@
 # arbitrader
-A framework to faciliate using automated strategies
+A framework to facilitate using automated strategies
